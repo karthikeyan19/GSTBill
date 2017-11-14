@@ -1,0 +1,212 @@
+[
+  {
+  "stateName" : "Andhra Pradesh",
+  "sateInitials" : "AP",
+  "stateCode" : 28,
+  "stateType" : "State"
+},
+  {
+    "stateName" : "Andaman & Nicobar Islands",
+    "sateInitials" : "AN",
+    "stateCode" : 35,
+    "stateType" : "UT"
+  },
+  {
+    "stateName" : "Arunachal Pradesh",
+    "sateInitials" : "AR",
+    "stateCode" : 12,
+    "stateType" : "State"
+  },
+  {
+    "stateName" : "Assam",
+    "sateInitials" : "AS",
+    "stateCode" : 18,
+    "stateType" : "State"
+  },
+  {
+    "stateName" : "Bihar",
+    "sateInitials" : "BR",
+    "stateCode" : 10,
+    "stateType" : "State"
+  },
+  {
+    "stateName" : "Chandigarh",
+    "sateInitials" : "CH",
+    "stateCode" : 4,
+    "stateType" : "UT"
+  },
+  {
+    "stateName" : "Chhattisgarh",
+    "sateInitials" : "AG",
+    "stateCode" : 22,
+    "stateType" : "State"
+  },
+  {
+    "stateName" : "Dadra & Nagar Haveli",
+    "sateInitials" : "DH",
+    "stateCode" : 26,
+    "stateType" : "UT"
+  },
+  {
+    "stateName" : "Daman & Diu",
+    "sateInitials" : "DD",
+    "stateCode" : 25,
+    "stateType" : "UT"
+  },
+  {
+    "stateName" : "Delhi",
+    "sateInitials" : "DL",
+    "stateCode" : 7,
+    "stateType" : "UT"
+  },
+  {
+    "stateName" : "Goa",
+    "sateInitials" : "GA",
+    "stateCode" : 30,
+    "stateType" : "State"
+  },
+  {
+    "stateName" : "Gujarat",
+    "sateInitials" : "GU",
+    "stateCode" : 24,
+    "stateType" : "State"
+  },
+  {
+    "stateName" : "Haryana",
+    "sateInitials" : "HR",
+    "stateCode" : 6,
+    "stateType" : "State"
+  },
+  {
+    "stateName" : "Himachal Pradesh",
+    "sateInitials" : "HP",
+    "stateCode" : 2,
+    "stateType" : "State"
+  },
+  {
+    "stateName" : "Jammu & Kashmir",
+    "sateInitials" : "JK",
+    "stateCode" : 1,
+    "stateType" : "State"
+  },
+  {
+    "stateName" : "Jharkhand",
+    "sateInitials" : "JH",
+    "stateCode" : 20,
+    "stateType" : "State"
+  },
+  {
+    "stateName" : "Karnataka",
+    "sateInitials" : "KA",
+    "stateCode" : 29,
+    "stateType" : "State"
+  },
+  {
+    "stateName" : "Kerala",
+    "sateInitials" : "KL",
+    "stateCode" : 32,
+    "stateType" : "State"
+  },
+  {
+    "stateName" : "Lakshadweep",
+    "sateInitials" : "LD",
+    "stateCode" : 31,
+    "stateType" : "UT"
+  },
+  {
+    "stateName" : "Madhya Pradesh",
+    "sateInitials" : "MP",
+    "stateCode" : 23,
+    "stateType" : "State"
+  },
+  {
+    "stateName" : "Maharashtra",
+    "sateInitials" : "MH",
+    "stateCode" : 27,
+    "stateType" : "State"
+  },
+  {
+    "stateName" : "Manipur",
+    "sateInitials" : "MN",
+    "stateCode" : 14,
+    "stateType" : "State"
+  },
+  {
+    "stateName" : "Meghalaya",
+    "sateInitials" : "ML",
+    "stateCode" : 17,
+    "stateType" : "State"
+  },
+  {
+    "stateName" : "Mizoram",
+    "sateInitials" : "MZ",
+    "stateCode" : 15,
+    "stateType" : "State"
+  },
+  {
+    "stateName" : "Odisha",
+    "sateInitials" : "OR",
+    "stateCode" : 21,
+    "stateType" : "State"
+  },
+  {
+    "stateName" : "Puducherry",
+    "sateInitials" : "PY",
+    "stateCode" : 34,
+    "stateType" : "UT"
+  },
+  {
+    "stateName" : "Punjab",
+    "sateInitials" : "PB",
+    "stateCode" : 3,
+    "stateType" : "State"
+  },
+  {
+    "stateName" : "Rajasthan",
+    "sateInitials" : "RJ",
+    "stateCode" : 8,
+    "stateType" : "State"
+  },
+  {
+    "stateName" : "Sikkim",
+    "sateInitials" : "SK",
+    "stateCode" : 11,
+    "stateType" : "State"
+  },
+  {
+    "stateName" : "Tamil Nadu",
+    "sateInitials" : "TN",
+    "stateCode" : 33,
+    "stateType" : "State"
+  },
+  {
+    "stateName" : "Telangana",
+    "sateInitials" : "TG",
+    "stateCode" : 36,
+    "stateType" : "State"
+  },
+  {
+    "stateName" : "Tripura",
+    "sateInitials" : "TR",
+    "stateCode" : 16,
+    "stateType" : "State"
+  },
+  {
+    "stateName" : "Uttar Pradesh",
+    "sateInitials" : "UP",
+    "stateCode" : 9,
+    "stateType" : "State"
+  },
+  {
+    "stateName" : "Uttarakhand",
+    "sateInitials" : "UK",
+    "stateCode" : 5,
+    "stateType" : "State"
+  },
+  {
+    "stateName" : "West Bengal",
+    "sateInitials" : "WB",
+    "stateCode" : 19,
+    "stateType" : "State"
+  }
+]

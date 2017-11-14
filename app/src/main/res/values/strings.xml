@@ -1,3 +1,43 @@
 <resources>
     <string name="app_name">GST Bill</string>
+
+    <!-- Clients String-->
+    <string name="hint_name">Name</string>
+    <string-array name="array_gst_treatment">
+        <item>Select GST Treatment</item>
+        <item>Registered Business</item>
+        <item>Unregistered Business</item>
+        <item>Consumer</item>
+    </string-array>
+    <string name="hint_email">Email</string>
+    <string name="hint_phone1">Phone 1</string>
+    <string name="hint_phone2">Phone 2</string>
+    <string name="hint_business_name">Name of Business</string>
+    <string name="hint_gstin">GSTIN / UIN</string>
+    <string name="hint_place_of_supply">Place Of Supply</string>
+    <string-array name="array_payment_terms">
+        <item>Select Payment Terms</item>
+        <item>Due On Receipt</item>
+        <item>Due end of month</item>
+        <item>Due end of next month</item>
+        <item>Custom Days</item>
+    </string-array>
+    <string name="hint_cus_days_payment">Custom Days For Payment</string>
+    <string name="hint_due_days">Due Days</string>
+    <string name="lbl_billing_address">Billing Address</string>
+    <string name="lbl_shipping_address">Shipping Address</string>
+    <string name="hint_address_line1">Address Line 1</string>
+    <string name="hint_address_line2">Address Line 2</string>
+    <string name="hint_city">City</string>
+    <string name="lbl_state">State</string>
+    <string name="hint_pincode">Pin Code</string>
+    <string name="title_add_billing_address">Add Billing Address</string>
+    <string name="title_add_shipping_address">Add shipping Address</string>
+    <string name="title_edit_billing_address">Update Billing Address</string>
+    <string name="title_edit_shipping_address">Update shipping Address</string>
+    <string name="lbl_same_address">Shipping Address is same as Billing Address?</string>
+
+    <!--Menu Strings-->
+    <string name="menu_add_client">Add Client</string>
+    <string name="menu_delete_client">Delete Client</string>
 </resources>
