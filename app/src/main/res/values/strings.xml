@@ -40,4 +40,5 @@
     <!--Menu Strings-->
     <string name="menu_add_client">Add Client</string>
     <string name="menu_delete_client">Delete Client</string>
+    <string name="menu_search">Search</string>
 </resources>

@@ -15,7 +15,7 @@ public class Client {
     public List<String> phoneNoList;
 
     public String nameOfBusiness;
-    public String GstinNo;
+    public String gstinNo;
     public PlaceOfSupply placeOfSupply;
     public int paymentTerms;
     public int customDaysForPayment;
