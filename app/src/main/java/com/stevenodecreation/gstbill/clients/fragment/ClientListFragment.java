@@ -16,7 +16,11 @@ import com.stevenodecreation.gstbill.BaseFragment;
 import com.stevenodecreation.gstbill.R;
 import com.stevenodecreation.gstbill.clients.adapter.ClientListAdapter;
 import com.stevenodecreation.gstbill.clients.manager.ClientManager;
+import com.stevenodecreation.gstbill.exception.GstBillException;
 import com.stevenodecreation.gstbill.fragment.SearchHistoryFragment;
+import com.stevenodecreation.gstbill.model.Client;
+
+import java.util.List;
 
 /**
  * Created by lenovo on 15-11-2017.
@@ -40,11 +44,28 @@ public class ClientListFragment extends BaseFragment {
         recyclerViewClientList.setAdapter(mClientListAdapter);
 
 
+        getClientList();
         return view;
     }
 
     private void getClientList() {
         ClientManager manager = new ClientManager();
+        manager.getClientList(0, new ClientManager.OnGetClientListListener() {
+            @Override
+            public void OnGetClientListSuccess(List<Client> response) {
+                mClientListAdapter.setData(response);
+            }
+
+            @Override
+            public void OnGetClientListError(GstBillException exception) {
+
+            }
+
+            @Override
+            public void onGetClientListEmpty() {
+
+            }
+        });
     }
 
     @Override
