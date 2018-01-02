@@ -1,0 +1,82 @@
+[
+  {
+    "name": "Anbu",
+    "age": 26,
+    "dob": 667799112000,
+    "mobile": [
+      "9842995689",
+      "8800129087"
+    ],
+    "salary": 45480,
+    "priceList": [
+      101.50,
+      150,
+      6584.63
+    ],
+    "purchaseList": [
+      {
+        "itemName": "shirt",
+        "quantity": 4,
+        "price": 3564
+      },
+      {
+        "itemName": "shoe",
+        "quantity": 1,
+        "price": 850
+      },
+      {
+        "itemName": "travel bag",
+        "quantity": 2,
+        "price": 4385
+      }
+    ],
+    "address": {
+      "addressLine1": "No.5, Balaji Layout, Hongasandra",
+      "addressLine2": "Begur Road, Bommanahalli",
+      "state": 1,
+      "city": 13,
+      "pincode": 560068
+    },
+    "lastModifiedTime": 1512195035000
+  },
+  {
+    "name": "Ayyanar",
+    "age": 28,
+    "dob": 677916635000,
+    "mobile": [
+      "9611891133",
+      "+918895299343"
+    ],
+    "salary": 54236,
+    "priceList": [
+      1018.50,
+      15356,
+      6584.63
+    ],
+    "purchaseList": [
+      {
+        "itemName": "t-shirt",
+        "quantity": 3,
+        "price": 1468
+      },
+      {
+        "itemName": "shoe",
+        "quantity": 1,
+        "price": 850
+      },
+      {
+        "itemName": "headset",
+        "quantity": 2,
+        "price": 2185
+      }
+    ],
+    "address": {
+      "addressLine1": "No.5, Balaji Layout, Hongasandra",
+      "addressLine2": "Madiwala Ayyapppa Temple",
+      "state": 1,
+      "city": 13,
+      "pincode": 560103
+    },
+    "lastModifiedTime": 1512198795000
+  }
+]
