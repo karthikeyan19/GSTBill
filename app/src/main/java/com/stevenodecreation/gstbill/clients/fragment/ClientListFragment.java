@@ -1,16 +1,20 @@
 package com.stevenodecreation.gstbill.clients.fragment;
 
+import android.app.SearchManager;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.SearchView;
 
 import com.stevenodecreation.gstbill.BaseFragment;
 import com.stevenodecreation.gstbill.R;
@@ -19,6 +23,7 @@ import com.stevenodecreation.gstbill.clients.manager.ClientManager;
 import com.stevenodecreation.gstbill.exception.GstBillException;
 import com.stevenodecreation.gstbill.fragment.SearchHistoryFragment;
 import com.stevenodecreation.gstbill.model.Client;
+import com.stevenodecreation.gstbill.model.ClientSearchRequest;
 
 import java.util.List;
 
@@ -26,9 +31,11 @@ import java.util.List;
  * Created by lenovo on 15-11-2017.
  */
 
-public class ClientListFragment extends BaseFragment {
+public class ClientListFragment extends BaseFragment implements ClientManager.OnGetClientListListener {
 
     private ClientListAdapter mClientListAdapter;
+    private RecyclerView.OnScrollListener mScrollListener;
+    private boolean isLoading;
 
     @Nullable
     @Override
@@ -37,40 +44,76 @@ public class ClientListFragment extends BaseFragment {
         setHasOptionsMenu(true);
 
         RecyclerView recyclerViewClientList = view.findViewById(R.id.recyclerview_client_list);
-        recyclerViewClientList.setLayoutManager(new LinearLayoutManager(getActivity()));
+        final LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
+        recyclerViewClientList.setLayoutManager(layoutManager);
 
         if (mClientListAdapter == null)
             mClientListAdapter = new ClientListAdapter();
         recyclerViewClientList.setAdapter(mClientListAdapter);
 
+        recyclerViewClientList.addOnScrollListener(mScrollListener = new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                if (dy > 0) { //check for scroll up
+                    int visibleItemCount, totalItemCount, firstVisibleItemPos;
+                    visibleItemCount = layoutManager.getChildCount();
+                    totalItemCount = layoutManager.getItemCount();
+                    firstVisibleItemPos = layoutManager.findFirstVisibleItemPosition();
 
-        getClientList();
+                    if ((visibleItemCount + firstVisibleItemPos) >= totalItemCount) {
+                        // condition true means, we reached last pos, so start do pagination
+                        getClientList("");
+                    }
+                }
+            }
+        });
+
+
+        getClientList("");
         return view;
     }
 
-    private void getClientList() {
+    private void getClientList(String queryText) {
+        if (isLoading)
+            return;
+        isLoading = true;
+
+        ClientSearchRequest request = new ClientSearchRequest();
+        if (!TextUtils.isEmpty(queryText)) {
+            if (TextUtils.isDigitsOnly(queryText)) {
+                request.mobileNo = queryText;
+                request.searchType = ClientSearchRequest.SEARCH_BY_MOBILE;
+            } else {
+                request.name = queryText;
+                request.searchType = ClientSearchRequest.SEARCH_BY_NAME;
+            }
+        }
+        request.from = mClientListAdapter.getItemCount();
+
         ClientManager manager = new ClientManager();
-        manager.getClientList(0, new ClientManager.OnGetClientListListener() {
-            @Override
-            public void OnGetClientListSuccess(List<Client> response) {
-                mClientListAdapter.setData(response);
-            }
-
-            @Override
-            public void OnGetClientListError(GstBillException exception) {
-
-            }
-
-            @Override
-            public void onGetClientListEmpty() {
-
-            }
-        });
+        manager.getClientList(request, this);
     }
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.menu_search, menu);
+
+        SearchManager manager = (SearchManager) getActivity().getSystemService(Context.SEARCH_SERVICE);
+        SearchView search = (SearchView) menu.findItem(R.id.menu_search_view).getActionView();
+        search.setIconified(false);
+        search.setSearchableInfo(manager.getSearchableInfo(getActivity().getComponentName()));
+
+        search.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String s) {
+                return false;
+            }
+        });
     }
 
     @Override
@@ -78,5 +121,20 @@ public class ClientListFragment extends BaseFragment {
         if (item.getItemId() == R.id.menu_search)
             replace(R.id.fragment_host, SearchHistoryFragment.newInstance());
         return true;
+    }
+
+    @Override
+    public void OnGetClientListSuccess(List<Client> response) {
+        mClientListAdapter.setData(response);
+    }
+
+    @Override
+    public void OnGetClientListError(GstBillException exception) {
+
+    }
+
+    @Override
+    public void onGetClientListEmpty() {
+
     }
 }

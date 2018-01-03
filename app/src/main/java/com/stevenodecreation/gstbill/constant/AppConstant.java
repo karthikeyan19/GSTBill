@@ -15,4 +15,5 @@ public final class AppConstant {
     public static final int PHONE_NO_LIST_SIZE = 2;
     public static final String REGEX_PATTERN_ALPHA_NUM = "^[a-zA-Z0-9]*$";
     public static final char UNICODE_CHAR_Z = '\u005A';
+    public static final int PAGE_LIMIT = 10;
 }

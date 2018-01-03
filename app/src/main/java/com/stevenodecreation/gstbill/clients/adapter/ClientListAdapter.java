@@ -23,14 +23,20 @@ public class ClientListAdapter extends RecyclerView.Adapter<ClientListAdapter.Cl
 
     private List<Client> mClientList = new ArrayList<>();
     private OnSubmitClickListener<Client> mOnSubmitClickListener;
+    private boolean mIsFooterVisible;
+
+    public void setmOnSubmitClickListener(OnSubmitClickListener<Client> listener) {
+        mOnSubmitClickListener = listener;
+    }
 
     public void setData(List<Client> clients) {
         mClientList = clients;
         notifyDataSetChanged();
     }
 
-    public void setmOnSubmitClickListener(OnSubmitClickListener<Client> listener) {
-        mOnSubmitClickListener = listener;
+    public void isFooterVisible(boolean footerVisible) {
+        mIsFooterVisible = footerVisible;
+        notifyItemChanged(getItemCount() - 1);
     }
 
     @Override

@@ -5,7 +5,6 @@ import android.support.annotation.Nullable;
 
 import com.stevenodecreation.gstbill.BaseActivity;
 import com.stevenodecreation.gstbill.R;
-import com.stevenodecreation.gstbill.clients.CreateEmpFragment;
 import com.stevenodecreation.gstbill.clients.fragment.ClientFragment;
 
 /**

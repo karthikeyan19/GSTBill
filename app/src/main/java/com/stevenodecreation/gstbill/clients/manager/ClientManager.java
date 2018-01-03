@@ -7,6 +7,7 @@ import com.stevenodecreation.gstbill.clients.manager.operation.UpdateClientDetai
 import com.stevenodecreation.gstbill.exception.GstBillException;
 import com.stevenodecreation.gstbill.manager.WebServiceManager;
 import com.stevenodecreation.gstbill.model.Client;
+import com.stevenodecreation.gstbill.model.ClientSearchRequest;
 
 import java.util.List;
 
@@ -67,8 +68,9 @@ public class ClientManager extends WebServiceManager {
         void onGetClientListEmpty();
     }
 
-    public void getClientList(int from, final OnGetClientListListener listener) {
-        GetClientListOperation operation = new GetClientListOperation(from, new GetClientListOperation.OnGetClientListListener() {
+    public void getClientList(ClientSearchRequest req, final OnGetClientListListener listener) {
+        GetClientListOperation operation = new GetClientListOperation(new Gson().toJson(req),
+                new GetClientListOperation.OnGetClientListListener() {
             @Override
             public void OnGetClientListSuccess(List<Client> response) {
                 if (listener != null) {

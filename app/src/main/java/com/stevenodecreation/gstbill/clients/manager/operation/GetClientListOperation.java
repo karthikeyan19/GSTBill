@@ -24,9 +24,9 @@ public class GetClientListOperation extends WebServiceOperation<List<Client>> {
 
     private OnGetClientListListener mOnGetClientListListener;
 
-    public GetClientListOperation(int from, OnGetClientListListener listener) {
-        super(String.format(Locale.getDefault(), UrlConstant.GET_CLIENT_LIST, from), Request.Method.GET,
-                new TypeToken() {}.getType(), GetClientListOperation.class.getSimpleName());
+    public GetClientListOperation(String body, OnGetClientListListener listener) {
+        super(UrlConstant.GET_CLIENT_LIST, Request.Method.POST,
+                new TypeToken<List<Client>>() {}.getType(), GetClientListOperation.class.getSimpleName());
         mOnGetClientListListener = listener;
     }
 
