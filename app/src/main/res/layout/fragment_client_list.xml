@@ -2,6 +2,7 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_margin="16dp">
 
     <android.support.v7.widget.RecyclerView
@@ -15,4 +16,13 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:visibility="gone"/>
+
+    <com.stevenodecreation.gstbill.widget.ErrorView
+        android:id="@+id/errorview_msg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        app:ev_imageSize="120dp"
+        app:ev_retryColor="@color/colorAccent"
+        app:ev_subtitle="Something went terribly wrong!" />
 </FrameLayout>

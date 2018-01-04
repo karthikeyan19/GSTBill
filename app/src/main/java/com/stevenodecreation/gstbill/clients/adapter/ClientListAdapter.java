@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.stevenodecreation.gstbill.OnSubmitClickListener;
@@ -39,6 +40,11 @@ public class ClientListAdapter extends RecyclerView.Adapter<ClientListAdapter.Cl
         notifyItemChanged(getItemCount() - 1);
     }
 
+    public void clearData() {
+        mClientList.clear();
+        notifyDataSetChanged();
+    }
+
     @Override
     public ClientListAdapter.ClientViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
@@ -52,6 +58,9 @@ public class ClientListAdapter extends RecyclerView.Adapter<ClientListAdapter.Cl
         holder.textViewEmail.setText(item.emailId);
         holder.textViewMobileNo.setText(TextUtils.join(", ", item.phoneNoList));
         holder.textViewGstin.setText(item.gstinNo);
+
+        if (position == getItemCount() - 1)
+            holder.progressBar.setVisibility(mIsFooterVisible ? View.VISIBLE : View.GONE);
 
     }
 
@@ -67,6 +76,7 @@ public class ClientListAdapter extends RecyclerView.Adapter<ClientListAdapter.Cl
         private TextView textViewMobileNo;
         private TextView textViewGstin;
         private ImageView imageViewEdit;
+        private ProgressBar progressBar;
 
         public ClientViewHolder(View itemView) {
             super(itemView);
@@ -75,6 +85,7 @@ public class ClientListAdapter extends RecyclerView.Adapter<ClientListAdapter.Cl
             textViewMobileNo = itemView.findViewById(R.id.textview_mobile_no);
             textViewGstin = itemView.findViewById(R.id.textview_gstin);
             imageViewEdit = itemView.findViewById(R.id.imageview_edit);
+            progressBar = itemView.findViewById(R.id.prgress_bar);
 
             imageViewEdit.setOnClickListener(new View.OnClickListener() {
                 @Override

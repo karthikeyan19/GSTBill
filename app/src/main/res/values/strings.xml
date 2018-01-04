@@ -41,4 +41,8 @@
     <string name="menu_add_client">Add Client</string>
     <string name="menu_delete_client">Delete Client</string>
     <string name="menu_search">Search</string>
+
+    <!--Error strings-->
+    <string name="error_view_oops">Oops</string>
+    <string name="error_view_retry">RETRY</string>
 </resources>

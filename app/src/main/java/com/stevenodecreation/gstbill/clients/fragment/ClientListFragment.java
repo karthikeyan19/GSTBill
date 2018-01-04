@@ -24,6 +24,7 @@ import com.stevenodecreation.gstbill.exception.GstBillException;
 import com.stevenodecreation.gstbill.fragment.SearchHistoryFragment;
 import com.stevenodecreation.gstbill.model.Client;
 import com.stevenodecreation.gstbill.model.ClientSearchRequest;
+import com.stevenodecreation.gstbill.widget.ErrorView;
 
 import java.util.List;
 
@@ -34,8 +35,16 @@ import java.util.List;
 public class ClientListFragment extends BaseFragment implements ClientManager.OnGetClientListListener {
 
     private ClientListAdapter mClientListAdapter;
+    private RecyclerView recyclerViewClientList;
     private RecyclerView.OnScrollListener mScrollListener;
+    private SearchView mSearchView;
+    private ErrorView mErrorView;
+
     private boolean isLoading;
+
+    public static ClientListFragment newInstance() {
+        return new ClientListFragment();
+    }
 
     @Nullable
     @Override
@@ -43,7 +52,8 @@ public class ClientListFragment extends BaseFragment implements ClientManager.On
         View view = inflater.inflate(R.layout.fragment_client_list, container, false);
         setHasOptionsMenu(true);
 
-        RecyclerView recyclerViewClientList = view.findViewById(R.id.recyclerview_client_list);
+        mErrorView = view.findViewById(R.id.errorview_msg);
+        recyclerViewClientList = view.findViewById(R.id.recyclerview_client_list);
         final LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         recyclerViewClientList.setLayoutManager(layoutManager);
 
@@ -62,23 +72,52 @@ public class ClientListFragment extends BaseFragment implements ClientManager.On
 
                     if ((visibleItemCount + firstVisibleItemPos) >= totalItemCount) {
                         // condition true means, we reached last pos, so start do pagination
-                        getClientList("");
+                        getClientList();
                     }
                 }
             }
         });
 
 
-        getClientList("");
+        getClientList();
         return view;
     }
 
-    private void getClientList(String queryText) {
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_search, menu);
+
+        SearchManager manager = (SearchManager) getActivity().getSystemService(Context.SEARCH_SERVICE);
+        mSearchView = (SearchView) menu.findItem(R.id.menu_search_view).getActionView();
+        mSearchView.setIconified(false);
+        mSearchView.setSearchableInfo(manager.getSearchableInfo(getActivity().getComponentName()));
+
+        mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                mClientListAdapter.clearData();
+                getClientList();
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String s) {
+                if (s.length() == 0) {
+                    mClientListAdapter.clearData();
+                    getClientList();
+                }
+                return true;
+            }
+        });
+    }
+
+    private void getClientList() {
         if (isLoading)
             return;
         isLoading = true;
 
         ClientSearchRequest request = new ClientSearchRequest();
+        String queryText = mSearchView.getQuery().toString();   // helpful for pagination with query on search box
         if (!TextUtils.isEmpty(queryText)) {
             if (TextUtils.isDigitsOnly(queryText)) {
                 request.mobileNo = queryText;
@@ -90,30 +129,11 @@ public class ClientListFragment extends BaseFragment implements ClientManager.On
         }
         request.from = mClientListAdapter.getItemCount();
 
+        if (request.from > 0) {
+            mClientListAdapter.isFooterVisible(true);
+        }
         ClientManager manager = new ClientManager();
         manager.getClientList(request, this);
-    }
-
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.menu_search, menu);
-
-        SearchManager manager = (SearchManager) getActivity().getSystemService(Context.SEARCH_SERVICE);
-        SearchView search = (SearchView) menu.findItem(R.id.menu_search_view).getActionView();
-        search.setIconified(false);
-        search.setSearchableInfo(manager.getSearchableInfo(getActivity().getComponentName()));
-
-        search.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String s) {
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String s) {
-                return false;
-            }
-        });
     }
 
     @Override
@@ -126,15 +146,20 @@ public class ClientListFragment extends BaseFragment implements ClientManager.On
     @Override
     public void OnGetClientListSuccess(List<Client> response) {
         mClientListAdapter.setData(response);
+        mClientListAdapter.isFooterVisible(false);
+        isLoading = false;
     }
 
     @Override
     public void OnGetClientListError(GstBillException exception) {
-
+        isLoading = false;
+        mClientListAdapter.isFooterVisible(false);
     }
 
     @Override
     public void onGetClientListEmpty() {
-
+        isLoading = false;
+        mClientListAdapter.isFooterVisible(false);
+        recyclerViewClientList.removeOnScrollListener(mScrollListener);
     }
 }
