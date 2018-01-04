@@ -14,9 +14,12 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.SearchView;
+import android.support.v7.widget.SearchView;
+import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.stevenodecreation.gstbill.BaseFragment;
+import com.stevenodecreation.gstbill.OnSubmitClickListener;
 import com.stevenodecreation.gstbill.R;
 import com.stevenodecreation.gstbill.clients.adapter.ClientListAdapter;
 import com.stevenodecreation.gstbill.clients.manager.ClientManager;
@@ -37,10 +40,11 @@ public class ClientListFragment extends BaseFragment implements ClientManager.On
     private ClientListAdapter mClientListAdapter;
     private RecyclerView recyclerViewClientList;
     private RecyclerView.OnScrollListener mScrollListener;
-    private SearchView mSearchView;
     private ErrorView mErrorView;
+    private ProgressBar mProgressBar;
 
     private boolean isLoading;
+    private String mQueryText;
 
     public static ClientListFragment newInstance() {
         return new ClientListFragment();
@@ -53,6 +57,8 @@ public class ClientListFragment extends BaseFragment implements ClientManager.On
         setHasOptionsMenu(true);
 
         mErrorView = view.findViewById(R.id.errorview_msg);
+        mProgressBar = view.findViewById(R.id.progressbar);
+
         recyclerViewClientList = view.findViewById(R.id.recyclerview_client_list);
         final LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         recyclerViewClientList.setLayoutManager(layoutManager);
@@ -78,6 +84,12 @@ public class ClientListFragment extends BaseFragment implements ClientManager.On
             }
         });
 
+        mClientListAdapter.setmOnSubmitClickListener(new OnSubmitClickListener<Client>() {
+            @Override
+            public void onSubmitClicked(Client object) {
+                replace(R.id.fragment_host, ClientFragment.newInstance(object));
+            }
+        });
 
         getClientList();
         return view;
@@ -88,13 +100,14 @@ public class ClientListFragment extends BaseFragment implements ClientManager.On
         inflater.inflate(R.menu.menu_search, menu);
 
         SearchManager manager = (SearchManager) getActivity().getSystemService(Context.SEARCH_SERVICE);
-        mSearchView = (SearchView) menu.findItem(R.id.menu_search_view).getActionView();
-        mSearchView.setIconified(false);
-        mSearchView.setSearchableInfo(manager.getSearchableInfo(getActivity().getComponentName()));
+        SearchView searchView = (SearchView) menu.findItem(R.id.menu_search_view).getActionView();
+        searchView.setIconified(false);
+        searchView.setSearchableInfo(manager.getSearchableInfo(getActivity().getComponentName()));
 
-        mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String s) {
+                mQueryText = s;
                 mClientListAdapter.clearData();
                 getClientList();
                 return true;
@@ -103,6 +116,7 @@ public class ClientListFragment extends BaseFragment implements ClientManager.On
             @Override
             public boolean onQueryTextChange(String s) {
                 if (s.length() == 0) {
+                    mQueryText = s;
                     mClientListAdapter.clearData();
                     getClientList();
                 }
@@ -117,13 +131,12 @@ public class ClientListFragment extends BaseFragment implements ClientManager.On
         isLoading = true;
 
         ClientSearchRequest request = new ClientSearchRequest();
-        String queryText = mSearchView.getQuery().toString();   // helpful for pagination with query on search box
-        if (!TextUtils.isEmpty(queryText)) {
-            if (TextUtils.isDigitsOnly(queryText)) {
-                request.mobileNo = queryText;
+        if (!TextUtils.isEmpty(mQueryText)) {
+            if (TextUtils.isDigitsOnly(mQueryText)) {
+                request.mobileNo = mQueryText;
                 request.searchType = ClientSearchRequest.SEARCH_BY_MOBILE;
             } else {
-                request.name = queryText;
+                request.name = mQueryText;
                 request.searchType = ClientSearchRequest.SEARCH_BY_NAME;
             }
         }
@@ -131,7 +144,11 @@ public class ClientListFragment extends BaseFragment implements ClientManager.On
 
         if (request.from > 0) {
             mClientListAdapter.isFooterVisible(true);
+        } else {
+            mProgressBar.setVisibility(View.VISIBLE);
+            mErrorView.setVisibility(View.GONE);
         }
+
         ClientManager manager = new ClientManager();
         manager.getClientList(request, this);
     }
@@ -147,6 +164,7 @@ public class ClientListFragment extends BaseFragment implements ClientManager.On
     public void OnGetClientListSuccess(List<Client> response) {
         mClientListAdapter.setData(response);
         mClientListAdapter.isFooterVisible(false);
+        mProgressBar.setVisibility(View.GONE);
         isLoading = false;
     }
 
@@ -154,6 +172,16 @@ public class ClientListFragment extends BaseFragment implements ClientManager.On
     public void OnGetClientListError(GstBillException exception) {
         isLoading = false;
         mClientListAdapter.isFooterVisible(false);
+        mProgressBar.setVisibility(View.GONE);
+
+        mErrorView.setSubtitle(R.string.error_network_response);
+        mErrorView.setRetryListener(new ErrorView.RetryListener() {
+            @Override
+            public void onRetry() {
+                getClientList();
+                Toast.makeText(getActivity(), "retry clicked", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override
@@ -161,5 +189,17 @@ public class ClientListFragment extends BaseFragment implements ClientManager.On
         isLoading = false;
         mClientListAdapter.isFooterVisible(false);
         recyclerViewClientList.removeOnScrollListener(mScrollListener);
+        mProgressBar.setVisibility(View.GONE);
+
+        if (mClientListAdapter.getItemCount() > 0)  // for pagination empty response, we should not show any msg.
+            return;
+        mErrorView.setSubtitle(R.string.msg_no_client);
+        mErrorView.setRetryText(R.string.menu_add_client);
+        mErrorView.setRetryListener(new ErrorView.RetryListener() {
+            @Override
+            public void onRetry() {
+                replace(R.id.fragment_host, ClientFragment.newInstance());
+            }
+        });
     }
 }

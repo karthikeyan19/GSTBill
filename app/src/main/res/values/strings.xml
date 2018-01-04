@@ -45,4 +45,8 @@
     <!--Error strings-->
     <string name="error_view_oops">Oops</string>
     <string name="error_view_retry">RETRY</string>
+    <string name="error_network_response">Something went wrong. Please try after Sometime.</string>
+
+    <!--Empty Msg Strings-->
+    <string name="msg_no_client">No Clients added yet..!!! Click below button to add clients.</string>
 </resources>

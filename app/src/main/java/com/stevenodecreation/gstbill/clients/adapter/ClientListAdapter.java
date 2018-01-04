@@ -31,8 +31,9 @@ public class ClientListAdapter extends RecyclerView.Adapter<ClientListAdapter.Cl
     }
 
     public void setData(List<Client> clients) {
-        mClientList = clients;
+        mClientList.addAll(clients);
         notifyDataSetChanged();
+        System.out.println("log list size = " + mClientList.size());
     }
 
     public void isFooterVisible(boolean footerVisible) {
@@ -85,7 +86,7 @@ public class ClientListAdapter extends RecyclerView.Adapter<ClientListAdapter.Cl
             textViewMobileNo = itemView.findViewById(R.id.textview_mobile_no);
             textViewGstin = itemView.findViewById(R.id.textview_gstin);
             imageViewEdit = itemView.findViewById(R.id.imageview_edit);
-            progressBar = itemView.findViewById(R.id.prgress_bar);
+            progressBar = itemView.findViewById(R.id.progressbar_client_pagination);
 
             imageViewEdit.setOnClickListener(new View.OnClickListener() {
                 @Override

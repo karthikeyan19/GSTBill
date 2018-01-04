@@ -15,5 +15,5 @@ public final class UrlConstant {
     public static final String CREATE_EMP_URI = "saveEmp";
     public static final String UPDATE_CLIENT = "updateClient";
     public static final String DELETE_CLIENT = "deleteClient?clientId=%d";
-    public static final String GET_CLIENT_LIST = "getClientList?from=%d";
+    public static final String GET_CLIENT_LIST = "getClientList";
 }

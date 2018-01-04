@@ -3,73 +3,77 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginBottom="4dp"
+    android:layout_marginTop="4dp"
     android:orientation="vertical">
-<android.support.v7.widget.CardView
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    xmlns:tools="http://schemas.android.com/tools"
-    app:cardElevation="4dp">
 
-    <RelativeLayout
+    <android.support.v7.widget.CardView xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="4dp">
+        app:cardElevation="4dp"
+        app:cardCornerRadius="2dp">
 
-        <TextView
-            android:id="@+id/textview_name"
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textStyle="bold"
-            tools:text="Rahul Dravid"
-            android:layout_alignParentStart="true" />
+            android:padding="4dp">
 
-        <ImageView
-            android:id="@+id/imageview_edit"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:src="@drawable/ic_edit"
-            tools:ignore="ContentDescription"
-            android:layout_alignParentTop="true"/>
+            <TextView
+                android:id="@+id/textview_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:textStyle="bold"
+                tools:text="Rahul Dravid" />
 
-        <TextView
-            android:id="@+id/textview_email"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textStyle="bold"
-            tools:text="dravid@gmail.com"
-            android:layout_alignParentStart="true"
-            android:layout_below="@id/textview_name"
-            android:layout_marginTop="4dp"/>
+            <ImageView
+                android:id="@+id/imageview_edit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentTop="true"
+                android:src="@drawable/ic_edit"
+                tools:ignore="ContentDescription" />
 
-        <TextView
-            android:id="@+id/textview_mobile_no"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textStyle="bold"
-            tools:text="+919876543210"
-            android:layout_alignParentStart="true"
-            android:layout_below="@id/textview_email"
-            android:layout_marginTop="4dp"/>
+            <TextView
+                android:id="@+id/textview_email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_below="@id/textview_name"
+                android:layout_marginTop="4dp"
+                android:textStyle="bold"
+                tools:text="dravid@gmail.com" />
 
-        <TextView
-            android:id="@+id/textview_gstin"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textStyle="bold"
-            tools:text="33AASDF1234EIZJ"
-            android:layout_alignParentStart="true"
-            android:layout_below="@id/textview_mobile_no"
-            android:layout_marginTop="4dp"/>
+            <TextView
+                android:id="@+id/textview_mobile_no"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_below="@id/textview_email"
+                android:layout_marginTop="4dp"
+                android:textStyle="bold"
+                tools:text="+919876543210" />
 
-    </RelativeLayout>
-</android.support.v7.widget.CardView>
+            <TextView
+                android:id="@+id/textview_gstin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_below="@id/textview_mobile_no"
+                android:layout_marginTop="4dp"
+                android:textStyle="bold"
+                tools:text="33AASDF1234EIZJ" />
+
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
 
     <ProgressBar
-        android:id="@+id/progress_bar"
+        android:id="@+id/progressbar_client_pagination"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="4dp"
         android:layout_marginTop="4dp"
-        android:layout_marginBottom="4dp"/>
+        android:visibility="gone" />
 </LinearLayout>

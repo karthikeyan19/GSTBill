@@ -37,7 +37,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:completionThreshold="1"
-                    android:hint="@string/app_name"/>
+                    android:hint="@string/hint_name"/>
 
                 <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"

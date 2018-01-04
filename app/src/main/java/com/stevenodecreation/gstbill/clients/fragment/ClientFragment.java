@@ -365,7 +365,7 @@ public class ClientFragment extends RunTimePermissionFragment implements ClientM
     public void onUpdateClientSuccess(BaseResponse response) {
         if (isAdded()) {
             Toast.makeText(getActivity(), response.message, Toast.LENGTH_SHORT).show();
-            pop();
+            popAllFragmentUpTo(1);
         }
     }
 

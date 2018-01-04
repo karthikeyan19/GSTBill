@@ -381,6 +381,7 @@ public class ErrorView extends LinearLayout {
      * Attaches a listener to the view which will be notified when retry events occur.
      */
     public ErrorView setRetryListener(RetryListener listener) {
+        setVisibility(VISIBLE);
         retryListener = listener;
         return this;
     }

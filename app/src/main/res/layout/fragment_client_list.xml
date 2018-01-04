@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_margin="16dp">
+    android:layout_margin="8dp">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerview_client_list"
@@ -22,6 +22,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:visibility="gone"
         app:ev_imageSize="120dp"
         app:ev_retryColor="@color/colorAccent"
         app:ev_subtitle="Something went terribly wrong!" />

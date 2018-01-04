@@ -30,8 +30,18 @@ public class BaseFragment extends Fragment {
 
             FragmentManager fm = getActivity().getSupportFragmentManager();
             fm.popBackStack();
-
         }
+    }
+
+    public void popAllFragmentUpTo(int upTo) {
+
+        if (getActivity() != null) {
+            FragmentManager fm = getActivity().getSupportFragmentManager();
+            int count = fm.getBackStackEntryCount();
+            for (int i = count; i > upTo; i--)
+                fm.popBackStack();
+        }
+
     }
 
     protected void onBackPress() {
