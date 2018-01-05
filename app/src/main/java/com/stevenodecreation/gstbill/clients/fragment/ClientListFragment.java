@@ -171,6 +171,8 @@ public class ClientListFragment extends BaseFragment implements ClientManager.On
     @Override
     public void OnGetClientListError(GstBillException exception) {
         configErrorMsg("");
+        if (mClientListAdapter.getItemCount() > 0)  // for pagination empty response, we should not show any msg.
+            return;
         mErrorView.setSubtitle(R.string.error_network_response);
         mErrorView.setRetryListener(new ErrorView.RetryListener() {
             @Override
