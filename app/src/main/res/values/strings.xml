@@ -49,4 +49,5 @@
 
     <!--Empty Msg Strings-->
     <string name="msg_no_client">No Clients added yet..!!! Click below button to add clients.</string>
+    <string name="msg_no_results_found">No results found !!!</string>
 </resources>

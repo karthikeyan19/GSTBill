@@ -163,37 +163,35 @@ public class ClientListFragment extends BaseFragment implements ClientManager.On
     @Override
     public void OnGetClientListSuccess(List<Client> response) {
         mClientListAdapter.setData(response);
-        mClientListAdapter.isFooterVisible(false);
-        mProgressBar.setVisibility(View.GONE);
-        isLoading = false;
+        configErrorMsg("");
+        configErrorMsg(getString(R.string.msg_no_results_found));
+
     }
 
     @Override
     public void OnGetClientListError(GstBillException exception) {
-        isLoading = false;
-        mClientListAdapter.isFooterVisible(false);
-        mProgressBar.setVisibility(View.GONE);
-
+        configErrorMsg("");
         mErrorView.setSubtitle(R.string.error_network_response);
         mErrorView.setRetryListener(new ErrorView.RetryListener() {
             @Override
             public void onRetry() {
                 getClientList();
-                Toast.makeText(getActivity(), "retry clicked", Toast.LENGTH_SHORT).show();
             }
         });
     }
 
     @Override
     public void onGetClientListEmpty() {
-        isLoading = false;
-        mClientListAdapter.isFooterVisible(false);
         recyclerViewClientList.removeOnScrollListener(mScrollListener);
-        mProgressBar.setVisibility(View.GONE);
-
+        configErrorMsg("");
         if (mClientListAdapter.getItemCount() > 0)  // for pagination empty response, we should not show any msg.
             return;
-        mErrorView.setSubtitle(R.string.msg_no_client);
+        if (TextUtils.isEmpty(mQueryText)) {
+            configErrorMsg(getString(R.string.msg_no_client));
+        } else {
+            mErrorView.setRetryVisible(false);
+            configErrorMsg(getString(R.string.msg_no_results_found));
+        }
         mErrorView.setRetryText(R.string.menu_add_client);
         mErrorView.setRetryListener(new ErrorView.RetryListener() {
             @Override
@@ -201,5 +199,12 @@ public class ClientListFragment extends BaseFragment implements ClientManager.On
                 replace(R.id.fragment_host, ClientFragment.newInstance());
             }
         });
+    }
+
+    private void configErrorMsg(String errorMsg) {
+        mClientListAdapter.isFooterVisible(false);
+        mProgressBar.setVisibility(View.GONE);
+        isLoading = false;
+        mErrorView.setSubtitle(errorMsg);
     }
 }

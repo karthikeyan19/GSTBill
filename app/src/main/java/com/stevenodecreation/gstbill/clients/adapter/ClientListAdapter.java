@@ -59,9 +59,7 @@ public class ClientListAdapter extends RecyclerView.Adapter<ClientListAdapter.Cl
         holder.textViewEmail.setText(item.emailId);
         holder.textViewMobileNo.setText(TextUtils.join(", ", item.phoneNoList));
         holder.textViewGstin.setText(item.gstinNo);
-
-        if (position == getItemCount() - 1)
-            holder.progressBar.setVisibility(mIsFooterVisible ? View.VISIBLE : View.GONE);
+        holder.progressBar.setVisibility(mIsFooterVisible ? View.VISIBLE : View.GONE);
 
     }
 
