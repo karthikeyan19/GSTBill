@@ -80,7 +80,7 @@ public class ClientFragment extends RunTimePermissionFragment implements ClientM
         super.onCreate(savedInstanceState);
 
         if (hasPermission(new String[]{AppConstant.READ_CONTACTS_PERMISSION})) {
-            showProgressDialog("Reading Contacts...");
+            showProgressDialog(getString(R.string.lbl_read_contacts));
             new Thread(new Runnable() {
                 @Override
                 public void run() {

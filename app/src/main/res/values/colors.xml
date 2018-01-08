@@ -7,5 +7,6 @@
     <color name="error_view_title">#cc000000</color>
     <color name="error_view_subtitle">#78000000</color>
     <color name="error_view_retry">#69F0AE</color>
+    <color name="color_divider">#F0E7F2</color>
 
 </resources>

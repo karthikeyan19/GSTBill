@@ -16,7 +16,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.support.v7.widget.SearchView;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 
 import com.stevenodecreation.gstbill.BaseFragment;
 import com.stevenodecreation.gstbill.OnSubmitClickListener;
@@ -53,13 +52,13 @@ public class ClientListFragment extends BaseFragment implements ClientManager.On
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_client_list, container, false);
+        View view = inflater.inflate(R.layout.fragment_product_client_list, container, false);
         setHasOptionsMenu(true);
 
         mErrorView = view.findViewById(R.id.errorview_msg);
         mProgressBar = view.findViewById(R.id.progressbar);
 
-        recyclerViewClientList = view.findViewById(R.id.recyclerview_client_list);
+        recyclerViewClientList = view.findViewById(R.id.recyclerview_prod_client_list);
         final LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         recyclerViewClientList.setLayoutManager(layoutManager);
 

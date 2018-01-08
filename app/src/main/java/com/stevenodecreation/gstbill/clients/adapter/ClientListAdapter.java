@@ -33,7 +33,6 @@ public class ClientListAdapter extends RecyclerView.Adapter<ClientListAdapter.Cl
     public void setData(List<Client> clients) {
         mClientList.addAll(clients);
         notifyDataSetChanged();
-        System.out.println("log list size = " + mClientList.size());
     }
 
     public void isFooterVisible(boolean footerVisible) {

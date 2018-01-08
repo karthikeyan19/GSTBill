@@ -4,7 +4,9 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.AppCompatSpinner;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -17,12 +19,18 @@ import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.stevenodecreation.gstbill.BaseFragment;
+import com.stevenodecreation.gstbill.BaseResponse;
 import com.stevenodecreation.gstbill.OnSubmitClickListener;
 import com.stevenodecreation.gstbill.R;
 import com.stevenodecreation.gstbill.adapter.GenericAutoCompleteAdapter;
+import com.stevenodecreation.gstbill.exception.GstBillException;
 import com.stevenodecreation.gstbill.model.Product;
 import com.stevenodecreation.gstbill.products.adapter.ProductAutoCompleteAdapter;
+import com.stevenodecreation.gstbill.products.manager.ProductManager;
 import com.stevenodecreation.gstbill.util.DataUtil;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by lenovo on 07-01-2018.
@@ -47,7 +55,7 @@ public class EditProductFragment extends BaseFragment {
     public static EditProductFragment newInstance(int type, Product product) {
         EditProductFragment fragment = new EditProductFragment();
         fragment.navigationType = type;
-        fragment.mProduct = product != null ? product : new Product();
+        fragment.mProduct = product;
         return fragment;
     }
 
@@ -73,9 +81,8 @@ public class EditProductFragment extends BaseFragment {
         mRadioGroupDiscount = view.findViewById(R.id.radiogroup_discount);
 
         mAutoCompleteTextViewProduct = view.findViewById(R.id.auto_comp_textview_product);
-        if (mProductAutoCompleteAdapter == null) {
-//            mProductAutoCompleteAdapter = new ProductAutoCompleteAdapter();
-        }
+//        mAutoCompleteTextViewProduct.setThreshold(3);
+        mProductAutoCompleteAdapter = new ProductAutoCompleteAdapter(getActivity(), new ArrayList<Product>());
         setHasOptionsMenu(true);
 
         return view;
@@ -83,20 +90,43 @@ public class EditProductFragment extends BaseFragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        mAutoCompleteTextViewProduct.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if (editable.toString().length() > 2) {
+                    getProductList(editable.toString());
+                }
+            }
+        });
+
         mProductAutoCompleteAdapter.setOnItemClickListener(new GenericAutoCompleteAdapter.OnItemClickListener<Product>() {
             @Override
             public void onItemClicked(Product item) {
                 if (mProduct.productId <= 0) {
                     Toast.makeText(getActivity(), "Product already added", Toast.LENGTH_SHORT).show();
+                } else {
+                    mProduct = item;
+                    setProductDetails();
                 }
             }
         });
+
         setProductDetails();
         super.onViewCreated(view, savedInstanceState);
     }
 
     private void setProductDetails() {
-        if (mProduct.productId <= 0)
+        if (mProduct == null)
             return;
 
         mRadioGroupProductType.check(mProduct.prodcutType == 0 ? R.id.radiobutton_goods : R.id.radiobutton_service);
@@ -110,7 +140,41 @@ public class EditProductFragment extends BaseFragment {
         mEditTextProdDesc.setText(mProduct.productDescription != null ? mProduct.productDescription : "");
         mSpinnerUnits.setSelection(mProduct.unit);
         mSpinnerTaxRate.setSelection(mProduct.taxRate);
+    }
 
+    private void getProductList(String query) {
+        ProductManager manager = new ProductManager();
+        manager.getProductList(query, new ProductManager.OnGetProductListListener() {
+            @Override
+            public void OnGetProductListSuccess(List<Product> response) {
+                mProductAutoCompleteAdapter = new ProductAutoCompleteAdapter(getActivity(), response);
+            }
+
+            @Override
+            public void OnGetProductListError(GstBillException exception) {
+
+            }
+
+            @Override
+            public void onGetProductListEmpty() {
+
+            }
+        });
+    }
+
+    private void updateProduct() {
+        ProductManager manager = new ProductManager();
+        manager.updateProduct(mProduct, new ProductManager.OnUpdateProductListener() {
+            @Override
+            public void onUpdateProductLSuccess(BaseResponse response) {
+                Toast.makeText(getActivity(), response.message, Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onUpdateProductLError(GstBillException exception) {
+
+            }
+        });
     }
 
     @Override
@@ -124,7 +188,7 @@ public class EditProductFragment extends BaseFragment {
         if (item.getItemId() == R.id.menu_save) {
             if (isValid()) {
                 if (navigationType == Product.PRODUCT_UPDATE) {
-                    //                sendDataToServer();
+                    updateProduct();
                 } else if (mOnSubmitClickListener != null) {
                     mOnSubmitClickListener.onSubmitClicked(mProduct);
                 }

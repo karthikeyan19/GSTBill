@@ -21,4 +21,5 @@ public class Product {
     public float discountValue;
     public int taxRate;
     public String productDescription;
+    public long lastUpdateTimestamp;
 }

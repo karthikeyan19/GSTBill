@@ -13,7 +13,14 @@ public final class UrlConstant {
 
     // Employee URI
     public static final String CREATE_EMP_URI = "saveEmp";
+
+    // Client URI
     public static final String UPDATE_CLIENT = "updateClient";
     public static final String DELETE_CLIENT = "deleteClient?clientId=%d";
     public static final String GET_CLIENT_LIST = "getClientList";
+
+    // PRODUCT URI
+    public static final String UPDATE_PRODUCT = "updateProduct";
+    public static final String DELETE_PRODUCT = "deleteProduct?productId=%d";
+    public static final String GET_PRODUCT_LIST = "getProductList?productName=%s";
 }

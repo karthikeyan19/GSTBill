@@ -9,6 +9,7 @@
         <item>Unregistered Business</item>
         <item>Consumer</item>
     </string-array>
+    <string name="lbl_read_contacts">Reading Contacts&#8230;</string>
     <string name="hint_email">Email</string>
     <string name="hint_phone1">Phone 1</string>
     <string name="hint_phone2">Phone 2</string>
@@ -38,6 +39,7 @@
     <string name="lbl_same_address">Shipping Address is same as Billing Address?</string>
 
     <!--Product Strings-->
+    <string name="lbl_add_product">Add Product</string>
     <string name="lbl_product_type">Product Type</string>
     <string name="lbl_goods">Goods</string>
     <string name="lbl_service">Service</string>
@@ -93,5 +95,6 @@
 
     <!--Empty Msg Strings-->
     <string name="msg_no_client">No Clients added yet..!!! Click below button to add clients.</string>
+    <string name="msg_no_product">No Products added yet..!!! Click below button to add Products.</string>
     <string name="msg_no_results_found">No results found !!!</string>
 </resources>
