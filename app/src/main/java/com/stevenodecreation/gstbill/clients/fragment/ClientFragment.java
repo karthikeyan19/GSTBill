@@ -1,6 +1,5 @@
 package com.stevenodecreation.gstbill.clients.fragment;
 
-import android.app.Dialog;
 import android.content.ContentResolver;
 import android.content.DialogInterface;
 import android.database.Cursor;
@@ -33,6 +32,7 @@ import com.stevenodecreation.gstbill.BaseResponse;
 import com.stevenodecreation.gstbill.OnSubmitClickListener;
 import com.stevenodecreation.gstbill.R;
 import com.stevenodecreation.gstbill.RunTimePermissionFragment;
+import com.stevenodecreation.gstbill.adapter.GenericAutoCompleteAdapter;
 import com.stevenodecreation.gstbill.clients.adapter.MyContactsAdapter;
 import com.stevenodecreation.gstbill.clients.adapter.PlaceOfSupplyAdapter;
 import com.stevenodecreation.gstbill.clients.manager.ClientManager;
@@ -60,7 +60,7 @@ public class ClientFragment extends RunTimePermissionFragment implements ClientM
     // // TODO: 07-10-2017 android autocompletetextview with suggestions from a web service
     // // TODO: 12/10/2017 progress dialog for contacts, web servcie operation
     private AutoCompleteTextView mAutoCompleteContacts;
-    private MyContactsAdapter mContactsAdapter;
+    private GenericAutoCompleteAdapter mContactsAdapter;
     private PlaceOfSupplyAdapter mPosAdapter;
 
     private Client mClient;
@@ -217,7 +217,7 @@ public class ClientFragment extends RunTimePermissionFragment implements ClientM
             mContactsAdapter = new MyContactsAdapter(getActivity(), (List<MyContacts>) msg.obj);
             mAutoCompleteContacts.setAdapter(mContactsAdapter);
 
-            mContactsAdapter.setOnItemClickListener(new MyContactsAdapter.OnItemClickListener() {
+            mContactsAdapter.setOnItemClickListener(new GenericAutoCompleteAdapter.OnItemClickListener<MyContacts>() {
                 @Override
                 public void onItemClicked(MyContacts item) {
                     mAutoCompleteContacts.setText(item.displayName);

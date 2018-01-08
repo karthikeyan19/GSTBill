@@ -37,10 +37,54 @@
     <string name="title_edit_shipping_address">Update shipping Address</string>
     <string name="lbl_same_address">Shipping Address is same as Billing Address?</string>
 
+    <!--Product Strings-->
+    <string name="lbl_product_type">Product Type</string>
+    <string name="lbl_goods">Goods</string>
+    <string name="lbl_service">Service</string>
+    <string name="hint_product_name">Product Name</string>
+    <string name="hint_hsn_code">HSN / SAC Code</string>
+    <string name="hint_qunatity">Quantity</string>
+    <string-array name="units_array">
+        <item>Units</item>
+        <item>Centimeter</item>
+        <item>Dozen</item>
+        <item>Gram</item>
+        <item>Kilogram</item>
+        <item>Kilometers</item>
+        <item>Liter</item>
+        <item>Meter</item>
+        <item>Metric Ton</item>
+        <item>Milliliter</item>
+        <item>Millimeters</item>
+        <item>Numbers</item>
+        <item>Packs</item>
+        <item>Pieces</item>
+        <item>Quintal</item>
+        <item>Square Feet</item>
+        <item>Square Meter</item>
+        <item>Tonnes</item>
+    </string-array>
+    <string name="hint_price">Unit Price</string>
+    <string name="lbl_discount">Discount</string>
+    <string name="lbl_value">Value</string>
+    <string name="lbl_rupee">$</string>
+    <string name="lbl_percentage">%</string>
+    <string-array name="tax_array">
+        <item>Tax Rate</item>
+        <item>0%</item>
+        <item>3%</item>
+        <item>5%</item>
+        <item>12%</item>
+        <item>18%</item>
+        <item>28%</item>
+    </string-array>
+    <string name="hint_prod_desc">Product Description</string>
+
     <!--Menu Strings-->
     <string name="menu_add_client">Add Client</string>
     <string name="menu_delete_client">Delete Client</string>
     <string name="menu_search">Search</string>
+    <string name="menu_save">Save</string>
 
     <!--Error strings-->
     <string name="error_view_oops">Oops</string>

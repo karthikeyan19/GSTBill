@@ -9,7 +9,7 @@ public final class UrlConstant {
     private UrlConstant() {}
 
     // DEV
-    public static final String BASE_DEV_URL = "http://192.168.2.34:8086/";
+    public static final String BASE_DEV_URL = "http://192.168.43.68:8086/";
 
     // Employee URI
     public static final String CREATE_EMP_URI = "saveEmp";
