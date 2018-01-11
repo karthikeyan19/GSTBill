@@ -23,6 +23,7 @@ import com.stevenodecreation.gstbill.R;
 import com.stevenodecreation.gstbill.clients.adapter.ClientListAdapter;
 import com.stevenodecreation.gstbill.clients.manager.ClientManager;
 import com.stevenodecreation.gstbill.exception.GstBillException;
+import com.stevenodecreation.gstbill.fragment.BaseSearchFragment;
 import com.stevenodecreation.gstbill.fragment.SearchHistoryFragment;
 import com.stevenodecreation.gstbill.model.Client;
 import com.stevenodecreation.gstbill.model.ClientSearchRequest;
@@ -34,7 +35,7 @@ import java.util.List;
  * Created by lenovo on 15-11-2017.
  */
 
-public class ClientListFragment extends BaseFragment implements ClientManager.OnGetClientListListener {
+public class ClientListFragment extends BaseSearchFragment implements ClientManager.OnGetClientListListener {
 
     private ClientListAdapter mClientListAdapter;
     private RecyclerView recyclerViewClientList;
@@ -96,13 +97,7 @@ public class ClientListFragment extends BaseFragment implements ClientManager.On
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.menu_search, menu);
-
-        SearchManager manager = (SearchManager) getActivity().getSystemService(Context.SEARCH_SERVICE);
-        SearchView searchView = (SearchView) menu.findItem(R.id.menu_search_view).getActionView();
-        searchView.setIconified(false);
-        searchView.setSearchableInfo(manager.getSearchableInfo(getActivity().getComponentName()));
-
+        super.onCreateOptionsMenu(menu, inflater);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String s) {
@@ -150,13 +145,6 @@ public class ClientListFragment extends BaseFragment implements ClientManager.On
 
         ClientManager manager = new ClientManager();
         manager.getClientList(request, this);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.menu_search)
-            replace(R.id.fragment_host, SearchHistoryFragment.newInstance());
-        return true;
     }
 
     @Override

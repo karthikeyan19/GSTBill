@@ -9,7 +9,7 @@ public final class UrlConstant {
     private UrlConstant() {}
 
     // DEV
-    public static final String BASE_DEV_URL = "http://192.168.43.68:8086/";
+    public static final String BASE_DEV_URL = "http://192.168.43.53:8084/";
 
     // Employee URI
     public static final String CREATE_EMP_URI = "saveEmp";
@@ -20,7 +20,7 @@ public final class UrlConstant {
     public static final String GET_CLIENT_LIST = "getClientList";
 
     // PRODUCT URI
-    public static final String UPDATE_PRODUCT = "updateProduct";
-    public static final String DELETE_PRODUCT = "deleteProduct?productId=%d";
-    public static final String GET_PRODUCT_LIST = "getProductList?productName=%s";
+    public static final String UPDATE_PRODUCT = "product/updateProduct";
+    public static final String DELETE_PRODUCT = "product/deleteProduct?productId=%d";
+    public static final String GET_PRODUCT_LIST = "product/getProductList?productName=%s";
 }

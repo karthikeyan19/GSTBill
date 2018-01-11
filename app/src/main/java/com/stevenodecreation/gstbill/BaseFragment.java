@@ -1,8 +1,10 @@
 package com.stevenodecreation.gstbill;
 
 import android.app.Dialog;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.view.View;
 import android.widget.TextView;
 
 /**
@@ -61,5 +63,9 @@ public class BaseFragment extends Fragment {
         if (mProgressDialog != null)
             mProgressDialog.dismiss();
         mProgressDialog = null;
+    }
+
+    protected void showSnackBar(View view, String msg) {
+        Snackbar.make(view, msg, Snackbar.LENGTH_SHORT).show();
     }
 }
