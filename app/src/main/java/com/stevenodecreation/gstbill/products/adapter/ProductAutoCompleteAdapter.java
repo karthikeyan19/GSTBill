@@ -2,14 +2,19 @@ package com.stevenodecreation.gstbill.products.adapter;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Filter;
 import android.widget.Filterable;
 
 import com.stevenodecreation.gstbill.R;
 import com.stevenodecreation.gstbill.adapter.GenericAutoCompleteAdapter;
+import com.stevenodecreation.gstbill.model.MyContacts;
 import com.stevenodecreation.gstbill.model.Product;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -34,4 +39,48 @@ public class ProductAutoCompleteAdapter extends GenericAutoCompleteAdapter<Produ
             }
         });
     }
+
+    @Override
+    public Filter getFilter() {
+        return mFilterList;
+    }
+
+    private Filter mFilterList = new Filter() {
+
+        @Override
+        protected FilterResults performFiltering(CharSequence constraint) {
+            FilterResults filterResults = new FilterResults();
+            if (!TextUtils.isEmpty(constraint)) {
+                mFilteredList.clear();
+                for (Product product : mOriginalList) {
+                    // some contacts save with no name only no will display in contacts list
+                    if (TextUtils.isEmpty(product.productName))
+                        continue;
+                    if (product.productName.toLowerCase().startsWith(constraint.toString().toLowerCase())) {
+                        mFilteredList.add(product);
+                    }
+                }
+//                Collections.sort(mFilteredList);
+                filterResults.values = mFilteredList;
+                filterResults.count = mFilteredList.size();
+                return filterResults;
+            } else {
+                return new FilterResults();
+            }
+        }
+
+        @SuppressWarnings("unchecked")
+        @Override
+        protected void publishResults(CharSequence constraint, FilterResults results) {
+            List<Product> filterList = (ArrayList<Product>) results.values;
+            if (results != null && results.count > 0) {
+                mContactsList.clear();
+                for (int i = 0; i < filterList.size(); i++) {
+                    mContactsList.add(filterList.get(i));
+                }
+                notifyDataSetChanged();
+            } else
+                notifyDataSetInvalidated();
+        }
+    };
 }

@@ -47,11 +47,11 @@ public abstract class GenericAutoCompleteAdapter<T> extends ArrayAdapter<T> impl
         mOnItemClickListener = listener;
     }
 
-    /*@Nullable
+    @Nullable
     @Override
-    public MyContacts getItem(int position) {
+    public T getItem(int position) {
         return (mContactsList != null && position < mContactsList.size()) ? mContactsList.get(position) : null;
-    }*/
+    }
 
     @NonNull
     @Override

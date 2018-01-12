@@ -11,9 +11,11 @@ import android.provider.ContactsContract;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AlertDialog;
+import android.text.Editable;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.text.style.StyleSpan;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -216,6 +218,24 @@ public class ClientFragment extends RunTimePermissionFragment implements ClientM
             dismissProgressDialog();
             mContactsAdapter = new MyContactsAdapter(getActivity(), (List<MyContacts>) msg.obj);
             mAutoCompleteContacts.setAdapter(mContactsAdapter);
+
+            mAutoCompleteContacts.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                }
+
+                @Override
+                public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                }
+
+                @Override
+                public void afterTextChanged(Editable editable) {
+                    if (editable.toString().length() > 1)
+                        mContactsAdapter.getFilter().filter(editable.toString());
+                }
+            });
 
             mContactsAdapter.setOnItemClickListener(new GenericAutoCompleteAdapter.OnItemClickListener<MyContacts>() {
                 @Override

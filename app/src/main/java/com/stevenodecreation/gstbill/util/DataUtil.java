@@ -1,5 +1,7 @@
 package com.stevenodecreation.gstbill.util;
 
+import android.text.TextUtils;
+
 /**
  * Created by lenovo on 07-01-2018.
  */
@@ -37,5 +39,13 @@ public class DataUtil {
             e.printStackTrace();
         }
         return 0;
+    }
+
+    public static String generateUrlParamsValue(String paramValue) {
+        if (TextUtils.isEmpty(paramValue))
+            return "";
+
+        String[] words = paramValue.split(" ");
+        return words.length > 1 ? TextUtils.join("+", words) : words[0];
     }
 }

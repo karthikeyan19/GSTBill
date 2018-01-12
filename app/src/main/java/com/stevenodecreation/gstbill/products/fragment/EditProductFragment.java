@@ -84,7 +84,6 @@ public class EditProductFragment extends BaseFragment {
         mRadioGroupDiscount = view.findViewById(R.id.radiogroup_discount);
 
         mAutoCompleteTextViewProduct = view.findViewById(R.id.auto_comp_textview_product);
-        mAutoCompleteTextViewProduct.setThreshold(3);
         mRootLayout = view.findViewById(R.id.root_layout);
         mProductAutoCompleteAdapter = new ProductAutoCompleteAdapter(getActivity(), new ArrayList<Product>());
         setHasOptionsMenu(true);
@@ -146,12 +145,16 @@ public class EditProductFragment extends BaseFragment {
         mSpinnerTaxRate.setSelection(mProduct.taxRate);
     }
 
-    private void getProductList(String query) {
+    private void getProductList(final String query) {
         ProductManager manager = new ProductManager();
-        manager.getProductList(query, new ProductManager.OnGetProductListListener() {
+        manager.getProductList(DataUtil.generateUrlParamsValue(query), new ProductManager.OnGetProductListListener() {
             @Override
             public void OnGetProductListSuccess(List<Product> response) {
                 mProductAutoCompleteAdapter = new ProductAutoCompleteAdapter(getActivity(), response);
+                mAutoCompleteTextViewProduct.setThreshold(3);
+                mAutoCompleteTextViewProduct.setAdapter(mProductAutoCompleteAdapter);
+                mProductAutoCompleteAdapter.getFilter().filter(query);
+
             }
 
             @Override
