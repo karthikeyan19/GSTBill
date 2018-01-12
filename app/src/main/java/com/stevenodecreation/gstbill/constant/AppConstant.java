@@ -16,4 +16,5 @@ public final class AppConstant {
     public static final String REGEX_PATTERN_ALPHA_NUM = "^[a-zA-Z0-9]*$";
     public static final char UNICODE_CHAR_Z = '\u005A';
     public static final int PAGE_LIMIT = 7;
+    public static final float MAX_DISCOUNT_PERC = 100f;
 }

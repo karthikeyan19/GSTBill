@@ -25,6 +25,7 @@ import com.stevenodecreation.gstbill.BaseResponse;
 import com.stevenodecreation.gstbill.OnSubmitClickListener;
 import com.stevenodecreation.gstbill.R;
 import com.stevenodecreation.gstbill.adapter.GenericAutoCompleteAdapter;
+import com.stevenodecreation.gstbill.constant.AppConstant;
 import com.stevenodecreation.gstbill.exception.GstBillException;
 import com.stevenodecreation.gstbill.model.Product;
 import com.stevenodecreation.gstbill.products.adapter.ProductAutoCompleteAdapter;
@@ -232,6 +233,13 @@ public class EditProductFragment extends BaseFragment {
             isValid = false;
         } else if (TextUtils.isEmpty(mEditTextHsnSacCode.getText().toString())) {
             isValid = false;
+        } else if (mRadioGroupDiscount.getCheckedRadioButtonId() == R.id.radiobutton_discount_rupee) {
+            if (DataUtil.getFloat(mEditTextDiscountValue.getText().toString()) >
+                    DataUtil.getDouble(mEditTextPrice.getText().toString()))
+                isValid = false;
+        } else if (mRadioGroupDiscount.getCheckedRadioButtonId() == R.id.radiobutton_discount_perc) {
+            if (DataUtil.getFloat(mEditTextDiscountValue.getText().toString()) > AppConstant.MAX_DISCOUNT_PERC)
+                isValid = false;
         }
         return isValid;
     }
