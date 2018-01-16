@@ -10,6 +10,7 @@ public class SalesInvoice {
 
     public Client client;
     public List<Product> productList;
+    public PaymentDetails paymentDetails;
     public long invoiceNo;
     public long invoiceDate;
 

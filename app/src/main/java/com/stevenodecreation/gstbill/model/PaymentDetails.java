@@ -7,7 +7,8 @@ package com.stevenodecreation.gstbill.model;
 public class PaymentDetails {
 
     public double totalBillAmount;
-    public double amountPaid;
+    public double amountRemaining;
+    public double amountGoingToPay;
     public long dueDate;
     public long paymentDate;
 

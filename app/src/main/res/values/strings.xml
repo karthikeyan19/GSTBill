@@ -82,6 +82,14 @@
     </string-array>
     <string name="hint_prod_desc">Product Description</string>
 
+    <!--Sales Invoice Strings-->
+    <string-array name="array_sales_invoice_title">
+        <item>Customer</item>
+        <item>Items</item>
+        <item>Payment</item>
+        <item>Invoice Preview</item>
+    </string-array>
+
     <!--Menu Strings-->
     <string name="menu_add_client">Add Client</string>
     <string name="menu_delete_client">Delete Client</string>
